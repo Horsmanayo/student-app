@@ -4,6 +4,11 @@ const db = require("./dbConn/conn");
 const studentRoute = require("./routes/studentRoute");
 const authRoute = require("./routes/authRoute");
 const courseRoute = require("./routes/courseRoute");
+const {
+  verifyToken,
+  isStudent,
+  isInstructor,
+} = require("./middlewares/authMiddleware");
 
 const app = express();
 const port = 3002;
@@ -25,7 +30,7 @@ app.use(welcomeMessage);
 //importing the student route
 app.use("/api/v1", authRoute);
 
-app.use("/api/v1", studentRoute);
+app.use("/api/v1", verifyToken, isStudent, studentRoute);
 
 app.use("/api/v1", courseRoute);
 
