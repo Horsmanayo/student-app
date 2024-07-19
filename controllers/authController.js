@@ -28,7 +28,7 @@ exports.createAccount = async (req, res) => {
         message: "Student created successfully",
       });
     } catch (error) {
-      res.status(400).json({ message: error.message });
+      res.status(500).json({ message: error.message });
     }
   } else if (account === "instructor") {
     try {
@@ -46,12 +46,10 @@ exports.createAccount = async (req, res) => {
         message: "Instructor created successfully",
       });
     } catch (error) {
-      res.status(400).json({ message: error.message });
+      res.status(500).json({ message: error.message });
     }
-  }
-  try {
-  } catch (error) {
-    res.status(400).json({ message: error.message });
+  } else {
+    res.status(400).json({ message: "Invalid account type" });
   }
 };
 

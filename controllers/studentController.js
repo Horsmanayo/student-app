@@ -1,19 +1,6 @@
 //import student model
 const Student = require("../models/studentModel");
 
-exports.createStudent = async (req, res) => {
-  try {
-    const student = new Student(req.body);
-    await student.save();
-    res.status(201).send({
-      status: "success",
-      message: "Student created successfully",
-    });
-  } catch (error) {
-    res.status(400).json({ message: error.message });
-  }
-};
-
 exports.getStudents = async (req, res) => {
   try {
     const students = await Student.find();
