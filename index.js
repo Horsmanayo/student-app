@@ -30,7 +30,7 @@ app.use(welcomeMessage);
 //importing the student route
 app.use("/api/v1", authRoute);
 
-app.use("/api/v1", verifyToken, isStudent, studentRoute);
+app.use("/api/v1/student", verifyToken, isStudent, studentRoute);
 
 app.use("/api/v1", courseRoute);
 

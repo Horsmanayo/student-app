@@ -6,6 +6,6 @@ const {
 
 const router = Router();
 
-router.get("/student", getStudents).get("/student/:studentId", getOneStudent);
+router.get("/", getStudents).get("/:studentId", getOneStudent);
 
 module.exports = router;
