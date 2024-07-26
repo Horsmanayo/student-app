@@ -3,6 +3,8 @@ const Student = require("../models/studentModel");
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 const dotenv = require("dotenv");
+const nodemailer = require("nodemailer");
+const otpGenerator = require("otp-generator");
 dotenv.config();
 
 exports.createAccount = async (req, res) => {
@@ -121,5 +123,43 @@ exports.login = async (req, res) => {
     }
   } else {
     res.status(400).json({ message: "Invalid account type" });
+  }
+};
+
+exports.forgetPassword = async (req, res) => {
+  const { email } = req.body;
+
+  try {
+    // Generate OTP
+    const otp = otpGenerator.generate(6, {
+      upperCase: false,
+      specialChars: false,
+    });
+
+    // Save the OTP in the database or any other storage mechanism
+
+    // Create a transporter for sending emails
+    const transporter = nodemailer.createTransport({
+      service: "gmail",
+      auth: {
+        user: process.env.EMAIL_USERNAME,
+        pass: process.env.EMAIL_PASSWORD,
+      },
+    });
+
+    // Configure the email options
+    const mailOptions = {
+      from: process.env.EMAIL_USERNAME,
+      to: email,
+      subject: "Password Reset OTP",
+      text: `Your OTP for password reset is: ${otp}`,
+    };
+
+    // Send the email
+    await transporter.sendMail(mailOptions);
+
+    res.status(200).json({ message: "OTP sent successfully" });
+  } catch (error) {
+    res.status(500).json({ message: error.message });
   }
 };
