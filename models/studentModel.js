@@ -48,6 +48,10 @@ const studentSchema = new Schema({
     type: Date,
     default: Date.now,
   },
+  email_verified: {
+    type: Boolean,
+    default: false,
+  },
 });
 
 const Student = mongoose.model("Student", studentSchema);
