@@ -2,6 +2,12 @@ const jwt = require("jsonwebtoken");
 const dotenv = require("dotenv");
 dotenv.config();
 
+/**
+ * Extracts the token from the Bearer authorization header.
+ *
+ * @param {Object} req - The request object.
+ * @returns {string|null} The extracted token or null if not found.
+ */
 const getTokenFromBearerHeader = (req) => {
   const authorizationHeader = req.headers.authorization;
   if (authorizationHeader && authorizationHeader.startsWith("Bearer ")) {

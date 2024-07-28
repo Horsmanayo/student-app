@@ -10,6 +10,17 @@ const crypto = require("crypto");
 const mailSender = require("../mailTransporter.js/nodemailerConfig");
 dotenv.config();
 
+/**
+ * Create an account for a student or instructor.
+ *
+ * @param {Object} req - The request object.
+ * @param {Object} req.params - The parameters sent in the request.
+ * @param {string} req.params.account - The type of account to create ("student" or "instructor").
+ * @param {Object} req.body - The data sent in the request body.
+ * @param {string} req.body.password - The password for the account.
+ * @param {Object} res - The response object.
+ * @returns {Object} The response object.
+ */
 exports.createAccount = async (req, res) => {
   const { account } = req.params;
   const { password } = req.body;
