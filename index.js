@@ -4,6 +4,8 @@ const db = require("./dbConn/conn");
 const studentRoute = require("./routes/studentRoute");
 const authRoute = require("./routes/authRoute");
 const courseRoute = require("./routes/courseRoute");
+const uploadRoute = require("./routes/uploadRoute");
+const cors = require("cors");
 
 const app = express();
 const port = 3002;
@@ -12,6 +14,8 @@ db.once("open", () => console.log("Connected to Database"));
 
 //using this middleware to process request from consumers, it works for post, patch, put requests
 app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
+app.use(cors());
 
 const welcomeMessage = (req, res, next) => {
   console.log("Welcome to our school app");
@@ -22,7 +26,8 @@ const welcomeMessage = (req, res, next) => {
 //this execute for every route on this server
 app.use(welcomeMessage);
 
-//importing the student route
+app.use("/api/v1", uploadRoute);
+
 app.use("/api/v1", authRoute);
 
 app.use("/api/v1", studentRoute);
