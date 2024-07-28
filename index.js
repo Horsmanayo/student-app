@@ -16,6 +16,8 @@ db.once("open", () => console.log("Connected to Database"));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(cors());
+app.use(express.urlencoded({ extended: true }));
+app.use(cors());
 
 const welcomeMessage = (req, res, next) => {
   console.log("Welcome to our school app");

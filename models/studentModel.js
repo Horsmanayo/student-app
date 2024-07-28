@@ -38,14 +38,22 @@ const studentSchema = new Schema({
   },
   courses: {
     type: [mongoose.Schema.Types.ObjectId],
-    required: false,
+    default: [],
+  },
+  role: {
+    type: String,
+    default: "student",
   },
   createdAt: {
     type: Date,
     default: Date.now,
   },
+  email_verified: {
+    type: Boolean,
+    default: false,
+  },
 });
 
-const Student = mongoose.model("student", studentSchema);
+const Student = mongoose.model("Student", studentSchema);
 
 module.exports = Student;
